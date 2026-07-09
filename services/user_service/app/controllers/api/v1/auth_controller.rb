@@ -55,10 +55,14 @@ module Api
        #   end
        # end
 
-       def logout
-        if @current_token_jti
-          RefreshTokenService.revoke_token(@current_token_jti)
+      def logout
+        if @current_token_jti && @current_token_exp
+          AccessTokenBlacklist.add(
+            @current_token_jti,
+            Time.at(@current_token_exp)
+          )
         end
+
 
         render json: { message: "Logged out successfully" }, status: :ok
       end

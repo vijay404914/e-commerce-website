@@ -29,6 +29,7 @@ module Authenticatable
       end
 
       @current_token_jti = payload[:jti]
+      @current_token_exp = payload[:exp]
 
       if access_token_blacklisted?(payload[:jti])
         render_unauthorized("Token has been revoked")
