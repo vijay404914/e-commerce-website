@@ -1,7 +1,7 @@
 module Api
   module V1
     class AuthController < ApplicationController
-      skip_before_action :authenticate_request, only: [ :login, :refresh ]
+      skip_before_action :authenticate_request, only: [ :login ]
 
       def login
         unless params[:email].present? && params[:password].present?
