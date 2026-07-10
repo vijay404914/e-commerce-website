@@ -9,6 +9,9 @@ class User < ApplicationRecord
                        if: -> { new_record? || password.present? }
 
   before_save :downcase_email
+  
+  enum :role, {user: 0, admin: 1}
+
 
   def self.find_by_email(email)
     find_by("LOWER(email) = ?", email.downcase)
