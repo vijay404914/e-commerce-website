@@ -22,12 +22,13 @@ class ProxyService
     case @service
     when "user"
       path = @path.present? ? "/#{@path}" : ""
-      "#{ENV['USER_SERVICE_URL']}/api/v1/auth#{path}"
-
+      "#{ENV['USER_SERVICE_URL']}/api/v1/auth/#{@path}"
     when "product"
-      path = @path.present? ? "/#{@path}" : "/products"
+      path = @path.present? ? "/products/#{@path}" : "/products"
       "#{ENV['PRODUCT_SERVICE_URL']}/api/v1#{path}"
-
+    when "inventory"
+      path = @path.present? ? "/inventories/#{@path}" : "/inventories"
+      "#{ENV['INVENTORY_SERVICE_URL']}/api/v1#{path}"
     else
       raise "Unknown service: #{@service}"
     end
