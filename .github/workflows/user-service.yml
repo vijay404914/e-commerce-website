@@ -1,0 +1,15 @@
+name: User Service CI
+
+on:
+  push:
+    paths:
+      - "services/user_service/**"
+  pull_request:
+    paths:
+      - "services/user_service/**"
+
+jobs:
+  ci:
+    uses: ./.github/workflows/rails-ci.yml
+    with:
+      service-path: services/user_service
