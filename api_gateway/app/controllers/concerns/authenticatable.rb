@@ -19,7 +19,7 @@ module Authenticatable
       unless payload[:type] == "access"
         return render_unauthorized("Invalid token type")
       end
-      
+
       if AccessTokenBlacklist.blacklisted?(payload[:jti])
         return render_unauthorized("Token has been revoked")
       end
