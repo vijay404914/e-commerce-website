@@ -1,0 +1,15 @@
+name: Product Service CI
+
+on:
+  push:
+    paths:
+      - "services/catalog_service/**"
+  pull_request:
+    paths:
+      - "services/catalog_service/**"
+
+jobs:
+  ci:
+    uses: ./.github/workflows/rails-ci.yml
+    with:
+      service-path: services/catalog_service

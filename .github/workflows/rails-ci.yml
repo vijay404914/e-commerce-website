@@ -1,0 +1,37 @@
+name: Rails CI
+
+on:
+  workflow_call:
+    inputs:
+      service-path:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ inputs.service-path }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4.7"
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+        run: bundle exec rspec

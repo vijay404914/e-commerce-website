@@ -1,0 +1,15 @@
+name: API Gateway CI
+
+on:
+  push:
+    paths:
+      - "api_gateway/**"
+  pull_request:
+    paths:
+      - "api_gateway/**"
+
+jobs:
+  ci:
+    uses: ./.github/workflows/rails-ci.yml
+    with:
+      service-path: api_gateway

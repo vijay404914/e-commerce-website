@@ -1,0 +1,15 @@
+name: Order Service CI
+
+on:
+  push:
+    paths:
+      - "services/payment_service/**"
+  pull_request:
+    paths:
+      - "services/payment_service/**"
+
+jobs:
+  ci:
+    uses: ./.github/workflows/rails-ci.yml
+    with:
+      service-path: services/payment_service
