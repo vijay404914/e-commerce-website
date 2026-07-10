@@ -30,30 +30,30 @@ module Api
         }, status: :ok
       end
 
-       # def refresh
-       #   refresh_token = params[:refresh_token]
+      # def refresh
+      #   refresh_token = params[:refresh_token]
 
-       #   unless refresh_token.present?
-       #     return render_error('Refresh token is required', :bad_request)
-       #   end
+      #   unless refresh_token.present?
+      #     return render_error('Refresh token is required', :bad_request)
+      #   end
 
-       #   begin
-       #     tokens = RefreshTokenService.rotate(refresh_token)
+      #   begin
+      #     tokens = RefreshTokenService.rotate(refresh_token)
 
-       #     render json: {
-       #       access_token: tokens[:access_token],
-       #       refresh_token: tokens[:refresh_token],
-       #       token_type: 'Bearer',
-       #       expires_in: ENV.fetch('JWT_ACCESS_TOKEN_EXPIRY', 900).to_i
-       #     }, status: :ok
+      #     render json: {
+      #       access_token: tokens[:access_token],
+      #       refresh_token: tokens[:refresh_token],
+      #       token_type: 'Bearer',
+      #       expires_in: ENV.fetch('JWT_ACCESS_TOKEN_EXPIRY', 900).to_i
+      #     }, status: :ok
 
-       #   rescue JWT::DecodeError => e
-       #     render_error(e.message, :unauthorized)
+      #   rescue JWT::DecodeError => e
+      #     render_error(e.message, :unauthorized)
 
-       #   rescue SecurityError => e
-       #     render_error(e.message, :forbidden)
-       #   end
-       # end
+      #   rescue SecurityError => e
+      #     render_error(e.message, :forbidden)
+      #   end
+      # end
 
       def logout
         if @current_token_jti && @current_token_exp

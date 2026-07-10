@@ -1,5 +1,5 @@
 class AccessTokenBlacklist
-  BLACKLIST_PREFIX = 'access_blacklist:'.freeze
+  BLACKLIST_PREFIX = "access_blacklist:".freeze
 
   class << self
     def add(jti, expires_at)
@@ -8,7 +8,7 @@ class AccessTokenBlacklist
 
       return if ttl <= 0
 
-      redis.setex(key, ttl, 'revoked')
+      redis.setex(key, ttl, "revoked")
     end
 
     def blacklisted?(jti)
@@ -27,7 +27,7 @@ class AccessTokenBlacklist
     private
 
     def redis
-      @redis ||= Redis.new(url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'))
+      @redis ||= Redis.new(url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0"))
     end
   end
 end
