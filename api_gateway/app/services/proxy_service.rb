@@ -30,7 +30,12 @@ class ProxyService
       path = @path.present? ? "/inventories/#{@path}" : "/inventories"
       "#{ENV['INVENTORY_SERVICE_URL']}/api/v1#{path}"
     when "order"
-      path = @path.present? ? "/orders/#{@path}" : "/orders"
+      if @request.path.include?("/carts")
+        path = @path.present? ? "/carts/#{@path}" : "/carts"
+      else
+        path = @path.present? ? "/orders/#{@path}" : "/orders"
+      end
+
       "#{ENV['ORDER_SERVICE_URL']}/api/v1#{path}"
     when "payment"
       path = @path.present? ? "/payments/#{@path}" : "/payments"

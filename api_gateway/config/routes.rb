@@ -30,6 +30,7 @@ Rails.application.routes.draw do
             to: "proxy#forward",
             defaults: { service: "inventory" },
             via: :all
+
       match "/orders",
             to: "proxy#forward",
             defaults: { service: "order" },
@@ -39,6 +40,17 @@ Rails.application.routes.draw do
             to: "proxy#forward",
             defaults: { service: "order" },
             via: :all
+
+      match "/carts",
+          to: "proxy#forward",
+          defaults: { service: "order" },
+          via: :all
+
+      match "/carts/*path",
+            to: "proxy#forward",
+            defaults: { service: "order" },
+            via: :all
+
       match "/payments",
             to: "proxy#forward",
             defaults: { service: "payment" },
