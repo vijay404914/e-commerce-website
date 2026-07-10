@@ -3,13 +3,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post "register", to: "registrations#create"
-
-      post 'auth/login', to: 'auth#login'
-      post 'auth/refresh', to: 'auth#refresh'
-      post 'auth/logout', to: 'auth#logout'
-
-      resources :users, only: [:show, :update]
+      scope :auth do
+        post :register, to: "registrations#create"
+        post :login,    to: "auth#login"
+        post :logout,   to: "auth#logout"
+      end
     end
   end
 end
