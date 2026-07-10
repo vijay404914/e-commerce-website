@@ -29,6 +29,12 @@ class ProxyService
     when "inventory"
       path = @path.present? ? "/inventories/#{@path}" : "/inventories"
       "#{ENV['INVENTORY_SERVICE_URL']}/api/v1#{path}"
+    when "order"
+      path = @path.present? ? "/orders/#{@path}" : "/orders"
+      "#{ENV['ORDER_SERVICE_URL']}/api/v1#{path}"
+    when "payment"
+      path = @path.present? ? "/payments/#{@path}" : "/payments"
+      "#{ENV['PAYMENT_SERVICE_URL']}/api/v1#{path}"
     else
       raise "Unknown service: #{@service}"
     end
