@@ -5,6 +5,7 @@ class UserSerializer < ActiveModel::Serializer
              :first_name,
              :last_name,
              :email,
+             :role,
              :mobile_number,
              :created_at
 end
