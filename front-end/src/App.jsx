@@ -1,14 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import AppRoutes from "./routes/AppRoutes";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">
-        React + Tailwind CSS v4 🚀
-      </h1>
-    </div>
-  )
+    <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
+
+      <AppRoutes />
+    </>
+  );
 }
 
-export default App
+export default App;
