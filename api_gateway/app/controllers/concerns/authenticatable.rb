@@ -23,7 +23,6 @@ module Authenticatable
       if AccessTokenBlacklist.blacklisted?(payload[:jti])
         return render_unauthorized("Token has been revoked")
       end
-
       @current_user_id = payload[:sub]
     rescue JWT::DecodeError => e
       render_unauthorized(e.message)

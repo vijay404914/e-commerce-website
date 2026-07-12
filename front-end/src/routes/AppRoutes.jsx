@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import ProductList from "../pages/products/ProductList";
+import Cart from "../pages/cart/cart";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Route>
     </Routes>

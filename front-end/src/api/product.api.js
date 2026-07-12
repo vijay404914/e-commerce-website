@@ -3,6 +3,10 @@ import api from "./axios";
 export const getProducts = () =>
   api.get("/api/v1/products");
 
+export const getProduct = (id) => {
+  return api.get(`/api/v1/products/${id}`);
+};
+
 export const createProduct = (payload) =>
   api.post("/api/v1/products", payload);
 

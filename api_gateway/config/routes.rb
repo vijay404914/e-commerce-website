@@ -41,12 +41,12 @@ Rails.application.routes.draw do
             defaults: { service: "order" },
             via: :all
 
-      match "/carts",
+      match "/cart",
           to: "proxy#forward",
           defaults: { service: "order" },
           via: :all
 
-      match "/carts/*path",
+      match "/cart/*path",
             to: "proxy#forward",
             defaults: { service: "order" },
             via: :all

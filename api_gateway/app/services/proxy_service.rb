@@ -1,10 +1,11 @@
 class ProxyService
   include HTTParty
 
-  def initialize(request, service, path)
+  def initialize(request, service, path, current_user_id = nil)
     @request = request
     @service = service
     @path = path
+    @current_user_id = current_user_id
   end
 
   def call
@@ -30,8 +31,8 @@ class ProxyService
       path = @path.present? ? "/inventories/#{@path}" : "/inventories"
       "#{ENV['INVENTORY_SERVICE_URL']}/api/v1#{path}"
     when "order"
-      if @request.path.include?("/carts")
-        path = @path.present? ? "/carts/#{@path}" : "/carts"
+      if @request.path.include?("/cart")
+        path = @path.present? ? "/cart/#{@path}" : "/cart"
       else
         path = @path.present? ? "/orders/#{@path}" : "/orders"
       end
@@ -48,7 +49,8 @@ class ProxyService
   def headers
     {
       "Content-Type" => @request.headers["Content-Type"],
-      "Authorization" => @request.headers["Authorization"]
+      "Authorization" => @request.headers["Authorization"],
+      "X-User-Id" => @current_user_id.to_s
     }
   end
 end
