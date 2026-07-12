@@ -1,11 +1,23 @@
 class ProductSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :id,
              :name,
              :description,
              :sku,
-             :category,
-             :brand,
              :price,
              :stock,
-             :status
+             :category,
+             :brand,
+             :status,
+             :image_url
+
+  def image_url
+    return unless object.image.attached?
+
+    rails_blob_url(
+      object.image,
+      host: "http://localhost:3002"
+    )
+  end
 end

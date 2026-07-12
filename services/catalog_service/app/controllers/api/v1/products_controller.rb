@@ -62,7 +62,8 @@ class Api::V1::ProductsController < ApplicationController
       :brand,
       :price,
       :stock,
-      :status
+      :status,
+      :image
     )
   end
 end
