@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { logout } from "../../api/auth.api";
-import { getToken, removeToken } from "../../services/token.service";
+import * as AuthService from "../../services/auth.service";
+import { getToken } from "../../services/token.service";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -11,16 +11,12 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-
-      removeToken();
+      // await AuthService.logout();
 
       toast.success("Logged out successfully.");
 
       navigate("/login", { replace: true });
     } catch (error) {
-      console.error(error);
-
       toast.error("Unable to logout.");
     }
   };
@@ -37,15 +33,29 @@ export default function Navbar() {
         </Link>
 
         {isLoggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-6">
+
+            <Link
+              to="/products"
+              className="text-gray-700 hover:text-indigo-600"
+            >
+              Products
+            </Link>
+
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600"
+            >
+              Logout
+            </button>
+
+          </div>
         ) : (
           <div className="space-x-5">
-            <Link to="/login" className="text-gray-700 hover:text-indigo-600">
+            <Link
+              to="/login"
+              className="text-gray-700 hover:text-indigo-600"
+            >
               Login
             </Link>
 
