@@ -1,12 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import AppRoutes from "./routes/AppRoutes";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
-      <h1>Hello React</h1>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+        }}
+      />
+
+      <AppRoutes />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
