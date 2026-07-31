@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import * as CartService from "../../services/cart.service";
 import * as ProductService from "../../services/product.service";
+import * as PaymentService from "../../services/payment.service";
+import * as OrderService from "../../services/order.service";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -66,6 +70,33 @@ export default function Cart() {
 	    toast.error("Unable to remove item");
 	  }
 	};
+
+  
+  const handleCheckout = async () => {
+    try {
+      const order = await OrderService.createOrder({
+        payment_method: "stripe",
+      });
+
+      const payment = await PaymentService.createPayment({
+        payment: {
+          order_id: order.id,
+          amount: order.total_amount,
+          currency: "INR",
+          payment_method: "card"
+        }
+      });
+
+      navigate("/payment", {
+        state: {
+          clientSecret: payment.client_secret,
+          paymentId: payment.payment_id,
+        },
+      });
+    } catch (error) {
+      toast.error("Checkout failed");
+    }
+  };
 
   if (loading) {
     return (
@@ -231,7 +262,10 @@ export default function Cart() {
 
             <hr className="mb-6" />
 
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold">
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold"
+            >
               Proceed To Checkout
             </button>
 

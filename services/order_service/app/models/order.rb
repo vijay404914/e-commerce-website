@@ -2,7 +2,6 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
 
   validates :user_id, presence: true
-  validates :order_number, presence: true, uniqueness: true
 
   validates :total_amount,
             presence: true,
