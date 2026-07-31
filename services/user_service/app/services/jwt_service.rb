@@ -72,7 +72,7 @@ class JwtService
     end
 
     def access_token_expiry
-      ENV.fetch("JWT_ACCESS_TOKEN_EXPIRY", 900).to_i
+      ENV.fetch("JWT_ACCESS_TOKEN_EXPIRY", 3600).to_i
     end
 
     def refresh_token_expiry
