@@ -11,7 +11,11 @@ import Register from "../pages/auth/Register";
 import ProductList from "../pages/products/ProductList";
 import Cart from "../pages/cart/cart";
 import Payment from "../pages/payment/Payment";
-
+import Orders from "../pages/orders/Orders";
+import OrderDetails from "../pages/orders/OrderDetails";
+import Favorites from "../pages/favorites/Favorites";
+import PaymentSuccess from "../pages/payment/PaymentSuccess";
+import PaymentFailed from "../pages/payment/PaymentFailed";
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
@@ -39,8 +43,6 @@ function PaymentWrapper() {
 export default function AppRoutes() {
   return (
     <Routes>
-
-      {/* Public Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute />}>
@@ -57,6 +59,26 @@ export default function AppRoutes() {
           <Route
             path="/payment"
             element={<PaymentWrapper />}
+          />
+          <Route
+            path="/orders"
+            element={<Orders />}
+          />
+          <Route 
+            path="/orders/:id" 
+            element={<OrderDetails />} 
+          />
+          <Route 
+            path="/favorites" 
+            element={<Favorites />} 
+          />
+          <Route 
+            path="/payment-success" 
+            element={<PaymentSuccess />} 
+          />
+          <Route
+            path="/payment-failed"
+            element={<PaymentFailed />}
           />
         </Route>
       </Route>

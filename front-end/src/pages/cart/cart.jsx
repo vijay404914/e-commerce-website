@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import * as CartService from "../../services/cart.service";
 import * as ProductService from "../../services/product.service";
-import * as PaymentService from "../../services/payment.service";
-import * as OrderService from "../../services/order.service";
+import { createPayment } from "../../services/payment.service";
+import { createOrder } from "../../services/order.service";
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -74,11 +74,11 @@ export default function Cart() {
   
   const handleCheckout = async () => {
     try {
-      const order = await OrderService.createOrder({
+      const order = await createOrder({
         payment_method: "stripe",
       });
 
-      const payment = await PaymentService.createPayment({
+      const payment = await createPayment({
         payment: {
           order_id: order.id,
           amount: order.total_amount,
@@ -91,6 +91,7 @@ export default function Cart() {
         state: {
           clientSecret: payment.client_secret,
           paymentId: payment.payment_id,
+          orderId: order.id,
         },
       });
     } catch (error) {

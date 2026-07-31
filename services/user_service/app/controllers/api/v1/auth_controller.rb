@@ -25,7 +25,7 @@ module Api
           access_token: tokens[:access_token],
           refresh_token: refresh_data[:token],
           token_type: "Bearer",
-          expires_in: ENV.fetch("JWT_ACCESS_TOKEN_EXPIRY", 900).to_i,
+          expires_in: ENV.fetch("JWT_ACCESS_TOKEN_EXPIRY", 3600).to_i,
           user: UserSerializer.new(user)
         }, status: :ok
       end

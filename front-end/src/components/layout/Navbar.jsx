@@ -52,10 +52,10 @@ export default function Navbar() {
               </Link>
 
               <Link
-                to="/payments"
+                to="/favorites"
                 className="text-gray-700 hover:text-indigo-600 font-medium"
               >
-                Payments
+                My Favorites
               </Link>
 
             </div>
