@@ -36,11 +36,11 @@ class Payment < ApplicationRecord
   validates :payment_method, presence: true
   validates :payment_status, presence: true
 
-  validates :transaction_id,
-            uniqueness: true,
-            allow_nil: true
+  # validates :transaction_id,
+  #           uniqueness: true,
+  #           allow_nil: true
 
-  validates :gateway_payment_id,
-            uniqueness: true,
-            allow_nil: true
+  # validates :gateway_payment_id,
+  #           uniqueness: true,
+  #           allow_nil: true
 end

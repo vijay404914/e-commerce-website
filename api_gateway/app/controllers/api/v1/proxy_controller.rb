@@ -4,7 +4,8 @@ class Api::V1::ProxyController < ApplicationController
     response = ProxyService.new(
       request,
       params[:service],
-      params[:path]
+      params[:path],
+      current_user_id
     ).call
 
     render json: response.parsed_response,

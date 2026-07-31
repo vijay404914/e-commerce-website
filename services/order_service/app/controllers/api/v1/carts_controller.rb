@@ -1,8 +1,7 @@
 module Api
   module V1
     class CartsController < ApplicationController
-      before_action :set_cart, only: %i[show destroy]
-      before_action :find_cart, only: %i[update_item remove_item]
+      before_action :set_cart, only: %i[show destroy update_item remove_item destroy]
 
       def show
         if @cart
@@ -23,17 +22,21 @@ module Api
         return render json: { error: "Product not found" }, status: :not_found unless product
 
         cart = Cart.find_or_create_by!(
-          user_id: params[:user_id],
+          user_id: current_user_id,
           status: "active"
         )
 
-        cart_item = cart.cart_items.find_or_initialize_by(
-          product_id: product["id"]
+        if cart.cart_items.exists?(product_id: product["id"])
+          return render json: {
+            error: "Product already added to cart."
+          }, status: :unprocessable_entity
+        end
+
+        cart_item = cart.cart_items.create!(
+          product_id: product["id"],
+          quantity: params[:quantity].to_i
         )
 
-        cart_item.quantity = params[:quantity].to_i
-
-        cart_item.save!
 
         render json: cart,
                serializer: CartSerializer,
@@ -86,20 +89,13 @@ module Api
       private
 
       def set_cart
-        @cart = Cart.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: "Cart not found" }, status: :not_found
-      end
-
-      def find_cart
-        @cart = Cart.find(params[:cart_id])
+        @cart = Cart.find_by(user_id: current_user_id)
       rescue ActiveRecord::RecordNotFound
         render json: { error: "Cart not found" }, status: :not_found
       end
 
       def validate_cart_params
         return "Product id is required" if params[:product_id].blank?
-        return "User id is required" if params[:user_id].blank?
         return "Quantity is required" if params[:quantity].blank?
         return "Quantity must be greater than zero" if params[:quantity].to_i <= 0
 

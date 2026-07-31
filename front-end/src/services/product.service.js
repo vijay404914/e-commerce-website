@@ -5,6 +5,11 @@ export const getProducts = async () => {
   return response.data;
 };
 
+export const getProduct = async (id) => {
+  const response = await ProductApi.getProduct(id);
+  return response.data;
+};
+
 export const createProduct = async (payload) => {
   const response = await ProductApi.createProduct(payload);
 

@@ -128,6 +128,7 @@ export default function ProductList() {
                 <th className="text-left p-4">Name</th>
                 <th className="text-left p-4">Price</th>
                 <th className="text-left p-4">Category</th>
+                <th className="text-left p-4">Status</th>
                 <th className="text-center p-4">Actions</th>
               </tr>
 
@@ -163,6 +164,10 @@ export default function ProductList() {
 
                     <td className="p-4">
                       {product.category}
+                    </td>
+
+                    <td className="p-4">
+                      {product.status}
                     </td>
 
                     <td className="p-4">
