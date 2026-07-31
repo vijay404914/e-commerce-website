@@ -14,6 +14,8 @@ import Payment from "../pages/payment/Payment";
 import Orders from "../pages/orders/Orders";
 import OrderDetails from "../pages/orders/OrderDetails";
 import Favorites from "../pages/favorites/Favorites";
+import PaymentSuccess from "../pages/payment/PaymentSuccess";
+import PaymentFailed from "../pages/payment/PaymentFailed";
 
 const stripePromise = loadStripe(
   import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
@@ -69,6 +71,14 @@ export default function AppRoutes() {
           <Route 
             path="/favorites" 
             element={<Favorites />} 
+          />
+          <Route 
+            path="/payment-success" 
+            element={<PaymentSuccess />} 
+          />
+          <Route
+            path="/payment-failed"
+            element={<PaymentFailed />}
           />
         </Route>
       </Route>

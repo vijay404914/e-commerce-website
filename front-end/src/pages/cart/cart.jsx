@@ -91,6 +91,7 @@ export default function Cart() {
         state: {
           clientSecret: payment.client_secret,
           paymentId: payment.payment_id,
+          orderId: order.id,
         },
       });
     } catch (error) {
